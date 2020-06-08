@@ -1,0 +1,99 @@
+<igx-card class="well col-md-6 col-sm-12 offset-md-3" type="outlined" style="border-radius: 35px;">
+  <igx-card-header class="card-headers" style="background-color: rgb(245, 201, 164); border-radius: 35px;">
+    <h2 igxCardHeaderTitle style="color: rgb(34, 32, 32); font-family: cursive; text-align: center;">
+      Create City
+    </h2>
+  </igx-card-header>
+  <igx-card-content style="align-items: center;">
+    <div class="row">
+      <div class="col col-md-12" style="margin-top: 10px;">
+        <form class="create-form" [formGroup]="exampleForm" novalidate (ngSubmit)="onSubmit(exampleForm.value)">
+          <h6 style="font-family: cursive; text-align: center;">
+            City Name
+          </h6>
+
+          <div class="form-group col-md-8 offset-md-2 offset-sm-1" style="color: black; display: inline-block;">
+            <mat-form-field class="full-width" color="primary">
+              <input matInput class="form-control" formControlName="CityName" style="color: black;" />
+            </mat-form-field>
+
+            <ng-container *ngFor="let validation of validation_messages.CityName">
+              <mat-error *ngIf="
+                  exampleForm.get('CityName').hasError(validation.type) &&
+                  (exampleForm.get('CityName').dirty ||
+                    exampleForm.get('CityName').touched)
+                ">{{ validation.message }}</mat-error>
+            </ng-container>
+          </div>
+          <h6 style="font-family: cursive; text-align: center;">
+            Stay Priority
+          </h6>
+          <div class="form-group col-md-8 offset-md-2 offset-sm-1">
+            <mat-form-field class="full-width">
+              <input matInput class="form-control" type="number" formControlName="StayPriority" style="color: black;" />
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.StayPriority">
+              <mat-error *ngIf="
+                  exampleForm.get('StayPriority').hasError(validation.type) &&
+                  (exampleForm.get('StayPriority').dirty ||
+                    exampleForm.get('StayPriority').touched)
+                ">{{ validation.message }}</mat-error>
+            </ng-container>
+          </div>
+          <h6 style="font-family: cursive; text-align: center;">
+            Longitude
+          </h6>
+          <div class="form-group col-md-8 offset-md-2 offset-sm-1">
+            <mat-form-field class="full-width">
+              <input matInput class="form-control" type="number" formControlName="Longitude" style="color: black;" />
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.Longitude">
+              <mat-error *ngIf="
+                  exampleForm.get('Longitude').hasError(validation.type) &&
+                  (exampleForm.get('Longitude').dirty ||
+                    exampleForm.get('Longitude').touched)
+                ">{{ validation.message }}</mat-error>
+            </ng-container>
+          </div>
+          <h6 style="font-family: cursive; text-align: center;">
+            Latitude
+          </h6>
+          <div class="form-group col-md-8 offset-md-2 offset-sm-1">
+            <mat-form-field class="full-width">
+              <input matInput class="form-control" type="number" formControlName="Latitude" style="color: black;" />
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.Latitude">
+              <mat-error *ngIf="
+                  exampleForm.get('Latitude').hasError(validation.type) &&
+                  (exampleForm.get('Latitude').dirty ||
+                    exampleForm.get('Latitude').touched)
+                ">{{ validation.message }}</mat-error>
+            </ng-container>
+          </div>
+          <h6 style="font-family: cursive; text-align: center;">
+            Maximum Stop
+          </h6>
+          <div class="form-group col-md-8 offset-md-2 offset-sm-1">
+            <mat-form-field class="full-width">
+              <input matInput class="form-control" type="number" formControlName="MaximumStop" style="color: black;" />
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.MaximumStop">
+              <mat-error *ngIf="
+                  exampleForm.get('MaximumStop').hasError(validation.type) &&
+                  (exampleForm.get('MaximumStop').dirty ||
+                    exampleForm.get('MaximumStop').touched)
+                ">{{ validation.message }}</mat-error>
+            </ng-container>
+          </div>
+
+          <div class="col-md-3 col-sm-3 offset-5">
+            <button mat-raised-button class="submit-button" color="primary" type="submit"
+              [disabled]="!exampleForm.valid">
+              Create
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </igx-card-content>
+</igx-card>
