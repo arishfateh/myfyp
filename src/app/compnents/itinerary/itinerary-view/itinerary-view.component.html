@@ -1,0 +1,85 @@
+<div *ngIf="last">
+  <section class="white-stripe arrow">
+    <div class="container">
+      <h3>Destinations</h3>
+    </div>
+  </section>
+  <section class="timeline">
+    <igx-card class="well col-md-8 offset-2" *ngFor="let item of itinerary">
+      <div class="row">
+        <a href="search">
+          <div class="country-block col-md-8">
+            <i></i>
+
+            <h5 style="font-family: cursive;">
+              {{ item.fromcity }}---->{{ item.cityname }}
+            </h5>
+
+            <br />
+            <h5 style="font-family: fantasy;color:whitesmoke;">
+              Route To follow
+            </h5>
+            <div *ngFor="let it of item.CurrentRoute">
+              <h6 style="font-family: cursive;">
+                {{ it.StartPoint }}----->{{ it.EndPoint }}
+              </h6>
+            </div>
+            <br />
+
+            <h5>Stay over city:</h5>
+            <h5>
+              {{ item.cityname }}
+            </h5>
+
+            <h5>Attraction Point To Visit:</h5>
+            <div *ngFor="let it of item.AttractionPoints">
+              <h5>
+                {{ it.AttractionName }}
+              </h5>
+            </div>
+          </div>
+        </a>
+        <div class="date-block col-md-4">
+          <div>DayNo: {{ item.Dayno }}</div>
+        </div>
+      </div>
+    </igx-card>
+    <button
+      style="width: 150px;align-self: left;"
+      type="button"
+      class="btn btn-danger wrn-btn"
+      (click)="getCost()"
+    >
+      Get Trip Cost
+    </button>
+    <button
+      style="width: 150px;align-self: right;"
+      type="button"
+      class="btn btn-danger wrn-btn"
+      (click)="customizeItinerary()"
+    >
+      Customize
+    </button>
+  </section>
+</div>
+<hr />
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
+  <!-- Footer Links -->
+
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+
+  <div class="footer-copyright text-center py-3">
+    Â© 2018 Copyright:
+    <a href="https://mdbootstrap.com/education/angular/"> RADTech.com</a>
+  </div>
+  <img
+    style="height: 50px; width: 50px;margin-left: 600px;"
+    src="assets/logo.png"
+    alt="df"
+  />
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

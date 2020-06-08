@@ -1,0 +1,109 @@
+.create-page {
+  padding: 20px 60px;
+}
+.create-page .page-content {
+  background-color: #fff;
+}
+.create-page .page-content .img-avatar {
+  border-radius: 50%;
+  width: 150px;
+  display: block;
+  margin: 20px auto;
+}
+.create-page .page-content .change-img-button {
+  display: block;
+  margin: 0px auto;
+}
+.create-page .page-content .create-form {
+  padding: 20px;
+}
+.create-page .page-content .create-form .submit-button-container {
+  justify-content: flex-end;
+}
+.create-page
+  .page-content
+  .create-form
+  .submit-button-container
+  .submit-button {
+  width: 100%;
+}
+.create-page .page-content .create-form .input-style {
+  width: 100%;
+
+}
+.create-page .page-content .create-form .mat-error {
+  font-size: 12px;
+}
+.image {
+  height: 100%;
+
+  background-image: url("./image/adventure-1846482_960_720.jpg");
+  background-size: cover;
+  width: auto;
+
+  background-position: 50% 50%;
+}
+.mat-card {
+  background-color: rgba(230, 219, 219, 0.781);
+}
+
+.img_div {
+  position: relative;
+}
+.img_ele {
+  opacity: 1;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+  display: block;
+}
+.img_overlay {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+.c {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-left: -50px;
+}
+.img_div:hover .img_ele {
+  opacity: 0.3;
+}
+.img_div:hover .img_overlay {
+  opacity: 1;
+}
+mat-nav-list.list-horizontal {
+  padding: 0;
+}
+mat-nav-list.list-horizontal .mat-list-item {
+  display: inline-block;
+  height: auto;
+  width: auto;
+}
+mat-nav-list.list-horizontal1 {
+  padding: 0;
+}
+mat-nav-list.list-horizontal1 .mat-list-item {
+  display: inline-block;
+  height: auto;
+  width: auto;
+}
+.marg {
+  margin-left: 20%;
+}
+.margsociety {
+  margin-left: 30%;
+}
+mat-button-toggle-group {
+  margin-left: 12px;
+  flex-wrap: wrap;
+}
