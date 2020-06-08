@@ -30,13 +30,11 @@ export class HotelViewComponent implements OnInit {
   itinerarydays: RoomType[] = [];
   itinerarydays2: AttractionPoint[] = [];
 
-
   all: both[] = [];
 
   public check: number = 0;
   public len: number;
   public hotelservice: Array<string> = [];
-
   hotelList: Rooms[];
   public check1: number = 0;
   public tok: any = null;

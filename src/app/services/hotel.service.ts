@@ -110,7 +110,6 @@ export class HotelService {
     }*/
 }
 
-
 /*
 routelist: AngularFireList<any>;
 selectedRoute: Rooms = new Rooms();
