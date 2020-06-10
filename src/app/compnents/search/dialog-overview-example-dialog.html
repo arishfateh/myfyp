@@ -1,89 +1,87 @@
 <div *ngFor="let item of data.hotel">
-    <mat-card class="lel" style="color: gray; border-color: gray;">
-        <div class="row">
-            <mat-accordion>
-                <div class="col-md-10 offset-1">
-                    <igx-card type="outlined" style="border-radius: 35px;">
-                        <igx-card-media height="196px">
-                            <img src="./38586.jpg" />
-                        </igx-card-media>
-                        <igx-card-header>
-                            <h3 igxCardHeaderTitle>{{ item.HotelName }}</h3>
-                            <h5 igxCardHeaderSubtitle>{{ item.City }}</h5>
-                        </igx-card-header>
-                        <igx-card-content>
-                            <p class="mb-1">No of Rooms: {{ item.NoOfRooms }}</p>
-                            <p class="mb-1">Vendor Name: {{ item.VendorName }}</p>
-                            <p class="mb-1">
-                                Vendor PhoneNo: {{ item.VendorPhoneNo }}
-                            </p>
-                            <h5>Hotel Services</h5>
-                            <div *ngFor="let q of item.HotelServices">
-                                <p class="mb-1">{{ q }}</p>
-                            </div>
-                        </igx-card-content>
-                        <div class="col col-md-2 offset-6" style="margin-top: 10px; margin-bottom: 10px;">
-                            <button class="btn btn-outline-primary action" (click)="onDelete(item.iti.ID)"
-                                type="button">
-                                Delete
-                            </button>
-                        </div>
-                    </igx-card>
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            Room Details
-                        </mat-expansion-panel-header>
-                        <div *ngFor="let i of item.roomTypes">
-                            <mat-card style="
+  <mat-card class="lel" style="color: gray; border-color: gray;">
+    <div class="row">
+      <mat-accordion>
+        <div class="col-md-10 offset-1">
+          <igx-card type="outlined" style="border-radius: 35px;">
+            <igx-card-media height="196px">
+              <img src="./38586.jpg" />
+            </igx-card-media>
+            <igx-card-header>
+              <h3 igxCardHeaderTitle>{{ item.HotelName }}</h3>
+              <h5 igxCardHeaderSubtitle>{{ item.City }}</h5>
+            </igx-card-header>
+            <igx-card-content>
+              <p class="mb-1">No of Rooms: {{ item.NoOfRooms }}</p>
+              <p class="mb-1">Vendor Name: {{ item.VendorName }}</p>
+              <p class="mb-1">
+                Vendor PhoneNo: {{ item.VendorPhoneNo }}
+              </p>
+              <h5>Hotel Services</h5>
+              <div *ngFor="let q of item.HotelServices">
+                <p class="mb-1">{{ q }}</p>
+              </div>
+            </igx-card-content>
+          </igx-card>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              Room Details
+            </mat-expansion-panel-header>
+            <div *ngFor="let i of item.roomTypes">
+              <mat-card
+                style="
+                  border-radius: 25px;
+                  border-color: black;
+                  border-width: 2px;
+                  margin-bottom: 2px;
+                "
+              >
+                <tr>
+                  <td>
+                    <h6>Room Type: {{ i.roomType }}</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>No of Rooms: {{ i.NoOfRooms }}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Price: {{ i.Price }}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Occupancy: {{ i.Occupancy }}</p>
+                  </td>
+                </tr>
+                <mat-card
+                  style="
                     border-radius: 25px;
                     border-color: black;
                     border-width: 2px;
                     margin-bottom: 2px;
-                  ">
-                                <tr>
-                                    <td>
-                                        <h6>Room Type: {{ i.roomType }}</h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>No of Rooms: {{ i.NoOfRooms }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>Price: {{ i.Price }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>Occupancy: {{ i.Occupancy }}</p>
-                                    </td>
-                                </tr>
-                                <mat-card style="
-                      border-radius: 25px;
-                      border-color: black;
-                      border-width: 2px;
-                      margin-bottom: 2px;
-                    ">
-                                    <tr>
-                                        <td>
-                                            <h6>Room Services</h6>
-                                        </td>
-                                    </tr>
-                                    <div *ngFor="let j of i.RoomServices">
-                                        <tr>
-                                            <td>
-                                                <p class="mb-1">{{ j }}</p>
-                                            </td>
-                                        </tr>
-                                    </div>
-                                </mat-card>
-                            </mat-card>
-                        </div>
-                    </mat-expansion-panel>
-                </div>
-            </mat-accordion>
+                  "
+                >
+                  <tr>
+                    <td>
+                      <h6>Room Services</h6>
+                    </td>
+                  </tr>
+                  <div *ngFor="let j of i.RoomServices">
+                    <tr>
+                      <td>
+                        <p class="mb-1">{{ j }}</p>
+                      </td>
+                    </tr>
+                  </div>
+                </mat-card>
+              </mat-card>
+            </div>
+          </mat-expansion-panel>
         </div>
-    </mat-card>
+      </mat-accordion>
+    </div>
+  </mat-card>
 </div>

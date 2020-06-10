@@ -203,6 +203,7 @@ export class SearchComponent implements OnInit {
   public hotelList: Array<Rooms> = [];
 
   print(): void {
+    this.getCost();
     let printContents, popupWin;
     printContents = document.getElementById("print-section").innerHTML;
     popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");

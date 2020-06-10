@@ -1,126 +1,149 @@
 <div *ngIf="display">
-  <div class="white-stripe arrow">
-    <div class="container">
-      <h3>Destinations</h3>
+  <div id="print-section">
+    <div class="white-stripe arrow">
+      <div class="container">
+        <h3>Destinations</h3>
+      </div>
     </div>
-  </div>
 
-  <div class="container-fluid py-2">
-    <div class="timeline">
-      <igx-card
-        class="well col-md-8 offset-2"
-        type="outlined"
-        *ngFor="let item of itinerary.todo"
-      >
-        <igx-card-header>
-          <h2 igxCardHeaderTitle style="color:whitesmoke;font-family: cursive;">
-            DayNo: {{ item.Dayno }}
-          </h2>
-        </igx-card-header>
+    <div class="container-fluid py-2">
+      <div class="timeline">
+        <igx-card
+          class="well col-md-8 offset-2"
+          type="outlined"
+          *ngFor="let item of itinerary.todo"
+        >
+          <igx-card-header>
+            <h2
+              igxCardHeaderTitle
+              style="color: whitesmoke; font-family: cursive;"
+            >
+              DayNo: {{ item.Dayno }}
+            </h2>
+          </igx-card-header>
 
-        <igx-card-content>
-          <i></i>
+          <igx-card-content>
+            <i></i>
 
-          <h3
-            style="color:whitesmoke;font-family:Arial, Helvetica, sans-serif;"
-          >
-            {{ item.fromcity }} ----> {{ item.cityname }}
-          </h3>
+            <h3
+              style="
+                color: whitesmoke;
+                font-family: Arial, Helvetica, sans-serif;
+              "
+            >
+              {{ item.fromcity }} ----> {{ item.cityname }}
+            </h3>
 
-          <br />
-          <igx-card class="dang col-md-8 offset-2">
-            <h4 style="color:whitesmoke;font-family: fantasy;">
-              Route To follow
-            </h4>
-            <div *ngFor="let it of item.CurrentRoute">
-              <h5 style="color:whitesmoke;font-family: cursive;">
-                {{ it.StartPoint }} -----> {{ it.EndPoint }}
-              </h5>
-            </div>
             <br />
+            <igx-card class="dang col-md-8 offset-2">
+              <h4 style="color: whitesmoke; font-family: fantasy;">
+                Route To follow
+              </h4>
+              <div *ngFor="let it of item.CurrentRoute">
+                <h5 style="color: whitesmoke; font-family: cursive;">
+                  {{ it.StartPoint }} -----> {{ it.EndPoint }}
+                </h5>
+              </div>
+              <br />
 
+              <button
+                igxButton
+                style="width: 250px; align-self: center;"
+                type="button"
+                class="btn btn-danger wrn-btn"
+                (click)="changestay(item)"
+              >
+                Change Stay Point
+              </button>
+              <div *ngIf="displaystaypoints">
+                <div *ngFor="let it of staypointsname">
+                  <button
+                    style="width: 150px; align-self: right;"
+                    type="button"
+                    class="btn btn-danger wrn-btn"
+                    (click)="changestaypoint(it, item)"
+                  >
+                    {{ it }}
+                  </button>
+                </div>
+              </div>
+              <br /><br />
+            </igx-card>
+            <h4 style="color: lightgray; font-family: fantasy;">
+              Attraction Point To Visit:
+            </h4>
+            <div *ngIf="item.AttractionPoints">
+              <div *ngFor="let it of item.AttractionPoints">
+                <h5 style="color: rgb(238, 209, 146); font-family: fantasy;">
+                  {{ it.AttractionName }}
+                </h5>
+              </div>
+            </div>
             <button
-              igxButton
-              style="width: 250px;align-self: center;"
+              style="
+                width: 250px;
+                align-self: right;
+                font-family: cursive;
+                margin-top: 20px;
+              "
               type="button"
               class="btn btn-danger wrn-btn"
-              (click)="changestay(item)"
+              (click)="changeattraction(item)"
             >
-              Change Stay Point
+              Add Attraction Point
             </button>
-            <div *ngIf="displaystaypoints">
-              <div *ngFor="let it of staypointsname">
+            <br />
+            <button
+              style="
+                width: 250px;
+                align-self: right;
+                font-family: cursive;
+                margin-top: 20px;
+              "
+              type="button"
+              class="btn btn-danger wrn-btn"
+              (click)="deleteattraction(item)"
+            >
+              Delete Attraction Point
+            </button>
+            <div *ngIf="displattr">
+              <div *ngFor="let it of deleteattr">
                 <button
-                  style="width: 150px;align-self: right;"
+                  style="width: 150px; align-self: right;"
                   type="button"
                   class="btn btn-danger wrn-btn"
-                  (click)="changestaypoint(it, item)"
+                  (click)="deletingattr(it, item)"
                 >
                   {{ it }}
                 </button>
               </div>
             </div>
-            <br /><br />
-          </igx-card>
-          <h4 style="color:lightgray;font-family: fantasy;">
-            Attraction Point To Visit:
-          </h4>
-          <div *ngIf="item.AttractionPoints">
-            <div *ngFor="let it of item.AttractionPoints">
-              <h5 style="color: rgb(238, 209, 146);font-family: fantasy;">
-                {{ it.AttractionName }}
-              </h5>
-            </div>
-          </div>
-          <button
-            style="width: 250px;align-self: right;font-family: cursive;margin-top: 20px;"
-            type="button"
-            class="btn btn-danger wrn-btn"
-            (click)="changeattraction(item)"
-          >
-            Add Attraction Point
-          </button>
-          <br />
-          <button
-            style="width: 250px;align-self: right;font-family: cursive;margin-top: 20px;"
-            type="button"
-            class="btn btn-danger wrn-btn"
-            (click)="deleteattraction(item)"
-          >
-            Delete Attraction Point
-          </button>
-          <div *ngIf="displattr">
-            <div *ngFor="let it of deleteattr">
-              <button
-                style="width: 150px;align-self: right;"
-                type="button"
-                class="btn btn-danger wrn-btn"
-                (click)="deletingattr(it, item)"
-              >
-                {{ it }}
-              </button>
-            </div>
-          </div>
-        </igx-card-content>
-      </igx-card>
+          </igx-card-content>
+        </igx-card>
 
-      <br />
-      <button
-        style="width: 150px;align-self: left;font-family: cursive;"
-        type="button"
-        class="btn btn-danger wrn-btn"
-        (click)="getCost()"
-      >
-        Get Trip Cost
-      </button>
-      <button
-        style="width: 150px;align-self: left;margin-left: 10px;font-family: cursive;"
-        type="button"
-        class="btn btn-danger wrn-btn"
-        (click)="reset()"
-      >
-        Reset to default
-      </button>
+        <br />
+        <button
+          style="width: 150px; align-self: right;"
+          type="button"
+          class="btn btn-danger wrn-btn"
+          (click)="print()"
+        >
+          print
+        </button>
+        <button
+          style="
+            width: 150px;
+            align-self: left;
+            margin-left: 10px;
+            font-family: cursive;
+          "
+          type="button"
+          class="btn btn-danger wrn-btn"
+          (click)="reset()"
+        >
+          Reset to default
+        </button>
+      </div>
     </div>
   </div>
 </div>
