@@ -1,92 +1,122 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { PwaService } from 'src/app/services/pwa.service';
+import { Component, OnInit, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
+import { PwaService } from "src/app/services/pwa.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-
-
-
   // Sidenav responsive
   width;
   height;
-  mode = 'side';
-  open = 'true';
-  title = 'Pak Touring';
-  title1 = 'Expanding Horizons'
+  mode = "side";
+  open = "true";
+  title = "Pak Touring";
+  title1 = "Expanding Horizons";
   navList: NavList[];
   navList1: NavList[];
   navList2: NavList[];
 
-
-  constructor(public ngZone: NgZone,
+  constructor(
+    public ngZone: NgZone,
     public route: Router,
-    public Pwa: PwaService, ) {
-
+    public Pwa: PwaService
+  ) {
     this.navList = [
       {
-        categoryName: 'Cities', icon: 'layers', dropDown: false,
-        subCategory:
-          [
-
-            { subCategoryName: 'Add', subCategoryLink: 'city', visable: true, },
-            { subCategoryName: 'View', subCategoryLink: 'city/view', visable: true, },
-
-          ]
+        categoryName: "Cities",
+        icon: "layers",
+        dropDown: false,
+        subCategory: [
+          { subCategoryName: "Add", subCategoryLink: "city", visable: true },
+          {
+            subCategoryName: "View",
+            subCategoryLink: "city/view",
+            visable: true,
+          },
+        ],
       },
       {
-        categoryName: 'Attraction Point', icon: 'terrain', dropDown: false,
-        subCategory:
-          [
-
-            { subCategoryName: 'Add', subCategoryLink: 'attraction', visable: true, },
-            { subCategoryName: 'View', subCategoryLink: 'attraction/view', visable: true, },
-
-          ]
+        categoryName: "Attraction Point",
+        icon: "terrain",
+        dropDown: false,
+        subCategory: [
+          {
+            subCategoryName: "Add",
+            subCategoryLink: "attraction",
+            visable: true,
+          },
+          {
+            subCategoryName: "View",
+            subCategoryLink: "attraction/view",
+            visable: true,
+          },
+        ],
       },
 
       {
-        categoryName: 'Route', icon: 'navigation', dropDown: false,
-        subCategory:
-          [
-            { subCategoryName: 'Add', subCategoryLink: 'route', visable: true, },
-            { subCategoryName: 'View', subCategoryLink: 'route/view', visable: true, },
-
-          ]
+        categoryName: "Route",
+        icon: "navigation",
+        dropDown: false,
+        subCategory: [
+          { subCategoryName: "Add", subCategoryLink: "route", visable: true },
+          {
+            subCategoryName: "View",
+            subCategoryLink: "route/view",
+            visable: true,
+          },
+        ],
       },
 
       {
-        categoryName: 'Hotel', icon: 'local_hotel', dropDown: false,
-        subCategory:
-          [
-            { subCategoryName: 'Add', subCategoryLink: 'hotel', visable: true, },
-            { subCategoryName: 'View', subCategoryLink: 'hotel/view', visable: true, },
-
-          ]
+        categoryName: "Hotel",
+        icon: "local_hotel",
+        dropDown: false,
+        subCategory: [
+          { subCategoryName: "Add", subCategoryLink: "hotel", visable: true },
+          {
+            subCategoryName: "View",
+            subCategoryLink: "hotel/view",
+            visable: true,
+          },
+        ],
       },
       {
-        categoryName: 'Itinerary', icon: 'map', dropDown: false,
-        subCategory:
-          [
-            { subCategoryName: 'Add', subCategoryLink: 'itinerary', visable: true, },
-            { subCategoryName: 'View', subCategoryLink: 'itinerary/view', visable: true, },
-
-          ]
+        categoryName: "Itinerary",
+        icon: "map",
+        dropDown: false,
+        subCategory: [
+          {
+            subCategoryName: "Add",
+            subCategoryLink: "itinerary",
+            visable: true,
+          },
+          {
+            subCategoryName: "View",
+            subCategoryLink: "itinerary/view",
+            visable: true,
+          },
+        ],
       },
       {
-        categoryName: 'Website', icon: 'map', dropDown: false,
-        subCategory:
-          [
-            { subCategoryName: 'Search view', subCategoryLink: 'search', visable: true, },
-            { subCategoryName: 'About us View', subCategoryLink: 'about', visable: true, },
-
-          ]
+        categoryName: "Website",
+        icon: "map",
+        dropDown: false,
+        subCategory: [
+          {
+            subCategoryName: "Search view",
+            subCategoryLink: "search",
+            visable: true,
+          },
+          {
+            subCategoryName: "About us View",
+            subCategoryLink: "about",
+            visable: true,
+          },
+        ],
       },
-
     ];
 
     this.changeMode();
@@ -98,26 +128,22 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
     const fields = {};
-
-
   }
   changeMode() {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     if (this.width <= 800) {
-      this.mode = 'over';
-      this.open = 'false';
+      this.mode = "over";
+      this.open = "false";
     }
     if (this.width > 800) {
-      this.mode = 'side';
-      this.open = 'true';
+      this.mode = "side";
+      this.open = "true";
     }
   }
 
   closeNav(param) {
-    // this.navList[param].dropDown=false;
     this.navList.forEach((element, index) => {
       if (index !== param) {
         element.dropDown = false;
@@ -125,11 +151,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  logout() {
-    //    this.authService.logout();
-    //   this.route.navigate(['login']);
-  }
-
+  logout() {}
 }
 
 export class NavList {
@@ -138,7 +160,12 @@ export class NavList {
   dropDown: boolean;
   subCategory: NavListItem[];
 
-  constructor(_categoryName: string, _icon: string, _dropDown: boolean, _subCategory: NavListItem[]) {
+  constructor(
+    _categoryName: string,
+    _icon: string,
+    _dropDown: boolean,
+    _subCategory: NavListItem[]
+  ) {
     this.categoryName = _categoryName;
     this.icon = _icon;
     this.dropDown = _dropDown;

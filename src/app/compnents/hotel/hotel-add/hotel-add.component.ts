@@ -1,30 +1,44 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  NgZone,
+} from "@angular/core";
 
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog, MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
-import { Router } from '@angular/router';
-import { HotelService } from 'src/app/services/hotel.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { Rooms } from 'src/app/model/rooms.model';
-import { RoomType } from 'src/app/model/room-type.model';
-import { CityService } from 'src/app/services/city.service';
-import { City } from 'src/app/model/city.model';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from "@angular/forms";
+import {
+  MatDialog,
+  MatSnackBar,
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+  MatChipInputEvent,
+} from "@angular/material";
+import { Router } from "@angular/router";
+import { HotelService } from "src/app/services/hotel.service";
+import { DomSanitizer } from "@angular/platform-browser";
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
+import { Rooms } from "src/app/model/rooms.model";
+import { RoomType } from "src/app/model/room-type.model";
+import { CityService } from "src/app/services/city.service";
+import { City } from "src/app/model/city.model";
 
 @Component({
-  selector: 'app-hotel-add',
-  templateUrl: './hotel-add.component.html',
-  styleUrls: ['./hotel-add.component.css']
+  selector: "app-hotel-add",
+  templateUrl: "./hotel-add.component.html",
+  styleUrls: ["./hotel-add.component.css"],
 })
-
 export class HotelAddComponent implements OnInit {
-
-
   exampleForm: FormGroup;
 
-  public base64textString = '';
+  public base64textString = "";
   public imgsrcs: Array<any> = [];
 
   public imgsrcs1: Array<any> = [];
@@ -33,7 +47,6 @@ export class HotelAddComponent implements OnInit {
   public rooms1: RoomType[] = [];
   public rooms: RoomType;
 
-
   public roomType: string;
   public NoOfRooms: number;
   public Price: number;
@@ -41,147 +54,136 @@ export class HotelAddComponent implements OnInit {
   public RoomServices: Array<string>;
 
   validation_messages = {
-    'City': [
-      { type: 'required', message: 'City is required.' }
+    City: [{ type: "required", message: "City is required." }],
+    HotelName: [{ type: "required", message: "Hotel Name is required." }],
+    NoOfRooms: [{ type: "required", message: "No Of Rooms is required." }],
+    VendorName: [{ type: "required", message: "Vendor Name is required." }],
+    VendorPhoneNo: [
+      { type: "required", message: "Vendor PhoneNo is required." },
     ],
-    'HotelName': [
-      { type: 'required', message: 'Hotel Name is required.' }
-    ],
-    'NoOfRooms': [
-      { type: 'required', message: 'No Of Rooms is required.' },
-    ],
-    'VendorName': [
-      { type: 'required', message: 'Vendor Name is required.' },
-    ],
-    'VendorPhoneNo': [
-      { type: 'required', message: 'Vendor PhoneNo is required.' },
-    ],
-
-
   };
 
   showarrayHotel: string[] = [
-    'Free parking',
-    'Free WiFi',
-    'Food & Drink',
+    "Free parking",
+    "Free WiFi",
+    "Food & Drink",
 
-    'Airport shuttle',
-    'Pool and wellness',
-    'Swimming pool',
-    'Sun umbrellas',
-    'Sun loungers or beach chairs',
-    'Pool/beach towels',
-    'Parking',
-    'Pets allowed',
-    'Pets are not allowed.',
+    "Airport shuttle",
+    "Pool and wellness",
+    "Swimming pool",
+    "Sun umbrellas",
+    "Sun loungers or beach chairs",
+    "Pool/beach towels",
+    "Parking",
+    "Pets allowed",
+    "Pets are not allowed.",
 
-    'Food & Drink',
-    'Special diet menus (on request)',
-    'Snack bar',
-    'Breakfast in the room',
-    'Bar',
-    'Restaurant',
+    "Food & Drink",
+    "Special diet menus (on request)",
+    "Snack bar",
+    "Breakfast in the room",
+    "Bar",
+    "Restaurant",
 
-    'Accessibility',
-    'Lower bathroom sink',
-    'Higher level toilet',
-    'Toilet with grab rails',
-    'Wheelchair accessible',
+    "Accessibility",
+    "Lower bathroom sink",
+    "Higher level toilet",
+    "Toilet with grab rails",
+    "Wheelchair accessible",
 
-    'Bathroom',
-    'Free toiletries',
+    "Bathroom",
+    "Free toiletries",
 
-    'Outdoors',
-    'Outdoor pool',
-    'BBQ facilities',
-    'Garden',
+    "Outdoors",
+    "Outdoor pool",
+    "BBQ facilities",
+    "Garden",
 
-    'General',
-    'WiFi available in all areas',
-    'Adult only',
-    'Mini-market on site',
-    'Airport shuttle (additional charge)',
-    'Airport shuttle (free)',
-    'Vending machine (drinks)',
-    'Designated smoking area',
-    'Air conditioning',
-    'Allergy-free room',
-    'Shops (on site)',
-    'Car hire',
-    'Packed lunches',
-    'Gift shop',
-    'Safety deposit box',
-    'Lift',
-    'VIP room facilities',
-    'Barber/beauty shop',
-    'Facilities for disabled guests',
-    'Airport shuttle',
-    'Jeeps',
-    'Rent-a-car',
-    'Non-smoking rooms',
-    'Newspapers',
-    'Room service',
-    'Transport',
-    'Airport drop off',
-    'Airport pick up',
-    'Reception services',
-    'Lockers',
-    'Concierge service',
-    'ATM/cash machine on site',
-    'Luggage storage',
-    'Tour desk',
-    'Currency exchange',
-    'Valet parking',
-    '24-hour front desk',
+    "General",
+    "WiFi available in all areas",
+    "Adult only",
+    "Mini-market on site",
+    "Airport shuttle (additional charge)",
+    "Airport shuttle (free)",
+    "Vending machine (drinks)",
+    "Designated smoking area",
+    "Air conditioning",
+    "Allergy-free room",
+    "Shops (on site)",
+    "Car hire",
+    "Packed lunches",
+    "Gift shop",
+    "Safety deposit box",
+    "Lift",
+    "VIP room facilities",
+    "Barber/beauty shop",
+    "Facilities for disabled guests",
+    "Airport shuttle",
+    "Jeeps",
+    "Rent-a-car",
+    "Non-smoking rooms",
+    "Newspapers",
+    "Room service",
+    "Transport",
+    "Airport drop off",
+    "Airport pick up",
+    "Reception services",
+    "Lockers",
+    "Concierge service",
+    "ATM/cash machine on site",
+    "Luggage storage",
+    "Tour desk",
+    "Currency exchange",
+    "Valet parking",
+    "24-hour front desk",
 
-    'Cleaning services',
-    'Daily housekeeping',
-    'Trouser press',
-    'Shoeshine',
-    'Ironing service',
-    'Dry cleaning',
-    'Laundry',
+    "Cleaning services",
+    "Daily housekeeping",
+    "Trouser press",
+    "Shoeshine",
+    "Ironing service",
+    "Dry cleaning",
+    "Laundry",
 
-    'Business facilities',
-    'Fax/photocopying',
-    'Business centre',
-    'Meeting/banquet facilities',
+    "Business facilities",
+    "Fax/photocopying",
+    "Business centre",
+    "Meeting/banquet facilities",
   ];
 
-
   showarrayRooms: Array<string> = [
-    'Tea/Coffee Maker',
-    'Minibar',
-    'Safety Deposit Box',
-    'Telephone',
-    'Air conditioning',
-    'Pants Press',
-    'Refrigerator',
-    'Desk',
-    'Ironing Facilities',
-    'Seating Area',
-    'Satellite Channels',
-    'Cable Channels',
-    'Flat-screen TV',
-    'Sofa',
-    'Tile/Marble floor',
-    'Hardwood or parquet floors',
-    'Wake-up service',
-    'Electric kettle',
-    'Executive Lounge Access Wardrobe or closet',
-    'Cleaning products',
-    'Bedding',
-    'Bottle of water',
-    'Free WiFi',
+    "Tea/Coffee Maker",
+    "Minibar",
+    "Safety Deposit Box",
+    "Telephone",
+    "Air conditioning",
+    "Pants Press",
+    "Refrigerator",
+    "Desk",
+    "Ironing Facilities",
+    "Seating Area",
+    "Satellite Channels",
+    "Cable Channels",
+    "Flat-screen TV",
+    "Sofa",
+    "Tile/Marble floor",
+    "Hardwood or parquet floors",
+    "Wake-up service",
+    "Electric kettle",
+    "Executive Lounge Access Wardrobe or closet",
+    "Cleaning products",
+    "Bedding",
+    "Bottle of water",
+    "Free WiFi",
 
-    'Space between access and wardrobe',
-    'Hairdryer',
-    'Bathrobe',
-    'Free toiletries',
-    'Slippers',
-    'Bath',
-    'Shower',
-    'Towels',
+    "Space between access and wardrobe",
+    "Hairdryer",
+    "Bathrobe",
+    "Free toiletries",
+    "Slippers",
+    "Bath",
+    "Shower",
+    "Towels",
   ];
 
   visible = true;
@@ -197,19 +199,21 @@ export class HotelAddComponent implements OnInit {
   alltags2: Observable<string[]>;
   SelectedTags2: string[] = [];
 
-
-  public isavailable: Array<string> = ['true', 'false'];
+  public isavailable: Array<string> = ["true", "false"];
 
   public tag: Array<string>;
   public tag2: Array<string>;
   public add1: string;
 
+  @ViewChild("fruitInput", { static: false }) fruitInput: ElementRef<
+    HTMLInputElement
+  >;
+  @ViewChild("auto", { static: false }) matAutocomplete: MatAutocomplete;
 
-  @ViewChild('fruitInput', { static: false }) fruitInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-
-  @ViewChild('fruitInput2', { static: false }) fruitInput2: ElementRef<HTMLInputElement>;
-  @ViewChild('auto2', { static: false }) matAutocomplete2: MatAutocomplete;
+  @ViewChild("fruitInput2", { static: false }) fruitInput2: ElementRef<
+    HTMLInputElement
+  >;
+  @ViewChild("auto2", { static: false }) matAutocomplete2: MatAutocomplete;
 
   constructor(
     private fb: FormBuilder,
@@ -217,25 +221,29 @@ export class HotelAddComponent implements OnInit {
     private router: Router,
     public hotelService: HotelService,
     public cityService: CityService,
-    private sanitizer: DomSanitizer, private snackBar: MatSnackBar
-
+    private sanitizer: DomSanitizer,
+    private snackBar: MatSnackBar
   ) {
     this.alltags = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.tag.slice()));
+      map((fruit: string | null) =>
+        fruit ? this._filter(fruit) : this.tag.slice()
+      )
+    );
 
     this.alltags2 = this.fruitCtrl2.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter2(fruit) : this.tag2.slice()));
-
-
+      map((fruit: string | null) =>
+        fruit ? this._filter2(fruit) : this.tag2.slice()
+      )
+    );
   }
 
   public routeList: City[];
   ngOnInit() {
     this.getcityData();
 
-    this.hotel = new Rooms;
+    this.hotel = new Rooms();
 
     this.tag = this.showarrayHotel;
     this.tag2 = this.showarrayRooms;
@@ -251,79 +259,61 @@ export class HotelAddComponent implements OnInit {
     if (this.routeList && this.check == 0) {
       this.len = this.routeList.length;
       this.check = 1;
-
     }
     if (this.routeList) {
       if (this.routeList.length > 0 && this.checking == 0) {
-        console.log(this.routeList)
+        console.log(this.routeList);
         this.disp = "csdc";
         this.checking = 1;
       }
-
     }
   }
   getcityData() {
-
-
-    this.cityService.getAllCity().subscribe(data => {
+    this.cityService.getAllCity().subscribe((data) => {
       this.routeList = data;
-    })
-
-
+    });
   }
-
 
   createForm() {
     this.exampleForm = this.fb.group({
-      City: ['', Validators.required],
-      HotelName: ['', Validators.required],
-      NoOfRooms: ['', Validators.required],
-      VendorName: ['', Validators.required],
-      VendorPhoneNo: ['', Validators.required],
-
+      City: ["", Validators.required],
+      HotelName: ["", Validators.required],
+      NoOfRooms: ["", Validators.required],
+      VendorName: ["", Validators.required],
+      VendorPhoneNo: ["", Validators.required],
     });
-
-
   }
-
-
 
   resetFields() {
-
     this.exampleForm = this.fb.group({
-      City: new FormControl('', Validators.required),
-      HotelName: new FormControl('', Validators.required),
-      NoOfRooms: new FormControl('', Validators.required),
-      VendorName: new FormControl('', Validators.required),
-      VendorPhoneNo: new FormControl('', Validators.required),
-
+      City: new FormControl("", Validators.required),
+      HotelName: new FormControl("", Validators.required),
+      NoOfRooms: new FormControl("", Validators.required),
+      VendorName: new FormControl("", Validators.required),
+      VendorPhoneNo: new FormControl("", Validators.required),
     });
   }
 
-
   onSubmit(value: Rooms) {
-
     console.log("in save", value);
     let ret = false;
     if (this.SelectedTags.length > 0) {
-      //this.user.permissions = this.SelectedTags;
-    }
-    else {
-      this.snackBar.open('enter Hotel Services', null, {
+    } else {
+      this.snackBar.open("enter Hotel Services", null, {
         duration: 2000,
-        panelClass: ['error-snackbar'],
-        horizontalPosition: 'right',
-        verticalPosition: 'top'
+        panelClass: ["error-snackbar"],
+        horizontalPosition: "right",
+        verticalPosition: "top",
       });
       ret = true;
     }
 
     if (this.rooms1.length <= 0) {
-      this.snackBar.open('Enter Room types', null, {
+      this.snackBar.open("Enter Room types", null, {
         duration: 2000,
-        panelClass: ['error-snackbar'],
-        horizontalPosition: 'right',
-        verticalPosition: 'top'
+        panelClass: ["error-snackbar"],
+        horizontalPosition: "right",
+        verticalPosition: "top",
       });
       ret = true;
     }
@@ -332,9 +322,6 @@ export class HotelAddComponent implements OnInit {
       return;
     }
     if (ret == false) {
-
-
-
       this.hotel.City = value.City;
       this.hotel.HotelName = value.HotelName;
       this.hotel.NoOfRooms = value.NoOfRooms;
@@ -351,17 +338,14 @@ export class HotelAddComponent implements OnInit {
       this.resetFields();
       this.snackBar.open("Hotel added successfully", null, {
         duration: 2000,
-        panelClass: ['success-snackbar'],
-        horizontalPosition: 'right',
-        verticalPosition: 'top'
+        panelClass: ["success-snackbar"],
+        horizontalPosition: "right",
+        verticalPosition: "top",
       });
     }
   }
 
-
   add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
@@ -369,27 +353,18 @@ export class HotelAddComponent implements OnInit {
       console.log(event);
 
       // Add our fruit
-      if ((value || '').trim()) {
+      if ((value || "").trim()) {
         this.SelectedTags.push(value.trim());
-
-        //console.log(value.trim());
       }
 
       this.fruitCtrl.setValue(null);
 
-
       // Reset the input value
       if (input) {
-        input.value = '';
+        input.value = "";
       }
-
-
     }
-
-
-
   }
-
 
   remove(fruit: string): void {
     const index = this.SelectedTags.indexOf(fruit);
@@ -411,14 +386,16 @@ export class HotelAddComponent implements OnInit {
     console.log(this.tag);
 
     this.SelectedTags.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
+    this.fruitInput.nativeElement.value = "";
     this.fruitCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.tag.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.tag.filter(
+      (fruit) => fruit.toLowerCase().indexOf(filterValue) === 0
+    );
   }
   /////////////////for rooms/////////////////
   add2(event: MatChipInputEvent): void {
@@ -431,7 +408,7 @@ export class HotelAddComponent implements OnInit {
       console.log(event);
 
       // Add our fruit
-      if ((value || '').trim()) {
+      if ((value || "").trim()) {
         this.SelectedTags2.push(value.trim());
 
         //console.log(value.trim());
@@ -439,19 +416,12 @@ export class HotelAddComponent implements OnInit {
 
       this.fruitCtrl2.setValue(null);
 
-
       // Reset the input value
       if (input) {
-        input.value = '';
+        input.value = "";
       }
-
-
     }
-
-
-
   }
-
 
   remove2(fruit: string): void {
     const index = this.SelectedTags2.indexOf(fruit);
@@ -473,19 +443,25 @@ export class HotelAddComponent implements OnInit {
     console.log(this.tag2);
 
     this.SelectedTags2.push(event.option.viewValue);
-    this.fruitInput2.nativeElement.value = '';
+    this.fruitInput2.nativeElement.value = "";
     this.fruitCtrl2.setValue(null);
   }
 
   private _filter2(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.tag2.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.tag2.filter(
+      (fruit) => fruit.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
-
   Addcheck() {
-    if (this.roomType !== "" && this.Price != null && this.NoOfRooms != null && this.Occupancy != null) {
+    if (
+      this.roomType !== "" &&
+      this.Price != null &&
+      this.NoOfRooms != null &&
+      this.Occupancy != null
+    ) {
       this.add1 = "dsda";
       console.log("efasda");
     }
@@ -494,7 +470,7 @@ export class HotelAddComponent implements OnInit {
   public resetting: string;
   public cansave: string;
   addroomtype() {
-    this.rooms = new RoomType;
+    this.rooms = new RoomType();
     this.rooms.NoOfRooms = this.NoOfRooms;
     this.rooms.Occupancy = this.Occupancy;
     this.rooms.Price = this.Price;
@@ -502,22 +478,17 @@ export class HotelAddComponent implements OnInit {
     const aa = this.SelectedTags2;
     for (var i = 0; i < this.SelectedTags2.length; i++) {
       this.rooms.RoomServices.push(this.SelectedTags2[i]);
-
     }
-    //this.rooms.RoomServices = this.SelectedTags2;
+
     if (this.rooms.RoomServices.length === this.SelectedTags2.length) {
       this.rooms1.push(this.rooms);
-      this.rooms = new RoomType;
-      //this.hotel.roomTypes.push(this.rooms);
-      //if (this.rooms1.RoomServices.length === this.SelectedTags2.length) {
+      this.rooms = new RoomType();
       {
         console.log("in room type", this.rooms1);
-        //console.log("hotel", this.hotel);
-        // this.resetrooms();
+
         this.resetting = "true";
         this.cansave = "true";
         this.add1 = null;
-
       }
     }
   }
@@ -527,13 +498,14 @@ export class HotelAddComponent implements OnInit {
     this.Price = null;
     this.Occupancy = null;
     this.NoOfRooms = null;
-    //this.SelectedTags2 = [];
+
     this.tag2 = this.showarrayRooms;
     this.alltags2 = this.fruitCtrl2.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter2(fruit) : this.tag2.slice()));
-
-
+      map((fruit: string | null) =>
+        fruit ? this._filter2(fruit) : this.tag2.slice()
+      )
+    );
 
     if (this.SelectedTags2.length > 0) {
       var aa = this.SelectedTags2;
@@ -543,7 +515,6 @@ export class HotelAddComponent implements OnInit {
       }
     }
     this.resetting = null;
-
   }
 
   onhotelDelete(item) {
@@ -554,62 +525,54 @@ export class HotelAddComponent implements OnInit {
   }
 
   handleFileSelect(evt) {
-    console.log("2")
+    console.log("2");
     const files = evt.target.files;
-    // var file = files[0];
-    if (files) {
 
-      Array.from(files).forEach(file => {
+    if (files) {
+      Array.from(files).forEach((file) => {
         const f = file as File;
         const reader = new FileReader();
         reader.onload = this._handleReaderLoaded.bind(this);
         reader.readAsBinaryString(f);
       });
-
     }
   }
 
-
-
-
-
   _handleReaderLoaded(readerEvt) {
-    console.log("2")
+    console.log("2");
     if (this.hotel == null) {
       this.hotel = new Rooms();
     }
 
     const binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
-    //console.log('data:image/png;charset=utf-8;base64,' + this.base64textString);
 
-    this.hotel.imgsrcs['data:image/png;charset=utf-8;base64,' + this.base64textString] =
-      this.sanitizer.bypassSecurityTrustUrl('data:image/png;charset=utf-8;base64,' + this.base64textString);
-    this.imgsrcs.push(this.sanitizer.bypassSecurityTrustUrl('data:image/png;charset=utf-8;base64,' + this.base64textString));
-    //  console.log(btoa(binaryString));
+    this.hotel.imgsrcs[
+      "data:image/png;charset=utf-8;base64," + this.base64textString
+    ] = this.sanitizer.bypassSecurityTrustUrl(
+      "data:image/png;charset=utf-8;base64," + this.base64textString
+    );
+    this.imgsrcs.push(
+      this.sanitizer.bypassSecurityTrustUrl(
+        "data:image/png;charset=utf-8;base64," + this.base64textString
+      )
+    );
+
     console.log(this.rooms);
   }
 
   removeImage(ims) {
-    console.log("2")
-    this.imgsrcs = this.imgsrcs.filter(obj => obj != ims);
+    console.log("2");
+    this.imgsrcs = this.imgsrcs.filter((obj) => obj != ims);
 
     for (const key in this.hotel.imgsrcs) {
-      if (JSON.stringify(this.hotel.imgsrcs[key]).toLowerCase() === JSON.stringify(ims).toLowerCase()) {
-        console.log('same idea');
+      if (
+        JSON.stringify(this.hotel.imgsrcs[key]).toLowerCase() ===
+        JSON.stringify(ims).toLowerCase()
+      ) {
+        console.log("same idea");
         delete this.hotel.imgsrcs[key];
       }
-
     }
-
   }
-
-
-  /////////////
-
-
-
-
 }
-
-
